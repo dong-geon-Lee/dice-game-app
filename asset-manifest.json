@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/dice-game-app/static/css/main.31d6cfe0.css",
+    "main.js": "/dice-game-app/static/js/main.7fc08143.js",
+    "index.html": "/dice-game-app/index.html",
+    "main.7fc08143.js.map": "/dice-game-app/static/js/main.7fc08143.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.7fc08143.js"
+  ]
+}
