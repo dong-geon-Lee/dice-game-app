@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0; 
     box-sizing: inherit;
   }
+  
 
   html {
     font-size: 62.5%;
@@ -31,6 +32,15 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Nunito', sans-serif;
     font-weight: 400;    
     line-height: 1.5;
+    /* background-image: linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%); */
+    /* background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%); */
+    background-color: beige;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
