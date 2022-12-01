@@ -1,10 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-import diceImg from "../assets/dice-3.png";
 
 export const Container = styled.div`
-  /* background-color: #ffdeeb;
-  background-color: #fcc2d7; */
   width: 100rem;
   height: 60rem;
   margin: 10rem auto;
@@ -29,11 +25,12 @@ export const Left = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #ffdeeb;
+  background-color: ${(props) => (props.active ? "#fff0f6" : "#faa2c1")};
+  transition: all 0.6s ease-out;
 `;
 
 export const Right = styled(Left)`
-  background-color: #fcc2d7;
+  background-color: ${(props) => (props.active ? "#fff0f6" : "#faa2c1")};
 `;
 
 export const ItemsBox = styled.div`
@@ -139,39 +136,3 @@ export const DiceImg = styled.img`
   margin: auto;
   box-shadow: 0 1rem 3rem 1rem rgba(0, 0, 0, 0.15);
 `;
-
-const DiceGame = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <MainContent>
-          <Left>
-            <Title>Player 1</Title>
-            <Score>0</Score>
-            <CurBox>
-              <Label>Current</Label>
-              <Span>0</Span>
-            </CurBox>
-          </Left>
-          <Right>
-            <Title>Player 2</Title>
-            <Score>0</Score>
-            <CurBox>
-              <Label>Current</Label>
-              <Span>0</Span>
-            </CurBox>
-          </Right>
-        </MainContent>
-
-        <ItemsBox>
-          <Button className="new__game">🔄 New Game</Button>
-          <DiceImg src={diceImg} alt="dice-img" className="dice__img" />
-          <Button className="roll__dice">🎲 Roll Dice</Button>
-          <Button className="hold">📥 Hold</Button>
-        </ItemsBox>
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default DiceGame;
