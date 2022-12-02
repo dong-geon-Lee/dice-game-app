@@ -20,80 +20,101 @@ import {
 
 const DiceGame = () => {
   const [diceNum, setDiceNum] = useState(diceNumber());
-  const [player1, setPlayer1] = useState(0);
-  const [player2, setPlayer2] = useState(0);
   const [cur1Score, setCur1Score] = useState(0);
   const [cur2Score, setCur2Score] = useState(0);
+  const [player1Score, setPlayer1Score] = useState(0);
+  const [player2Score, setPlayer2Score] = useState(0);
   const [active, setActive] = useState(true);
-  const [score, setScore] = useState(0);
   const [btnState, setBtnState] = useState(false);
-  const [player1Win, setPlayer1Win] = useState(false);
-  const [player2Win, setPlayer2Win] = useState(false);
+  const [playerWin, setPlayerWin] = useState(false);
 
-  const handleDiceClick = () => {
-    if (diceNum === 1) {
-      setActive((prev) => !prev);
-    }
+  let scoreTotal, curTotal;
 
+  // 주사위 굴리기
+  const handleDiceBtn = () => {
+    // 주사위 숫자 1이 연속으로 나올 떄, 이떄는 state가 변하기 이전
+    // 이므로 직관적으로 볼 떄, 수동으로 턴이 이동되게 만들어야된다.
+    if (diceNum === 1) setActive((prev) => !prev);
+
+    // 클릭 할 떄마다 랜덤 숫자를 업데이트 시켜준다.
+    // 매번 다른 숫자를 함수인자로 넣어준다.
     setDiceNum(diceNumber());
-    handleCurScore(diceNum);
+    calcCurScore(diceNum);
   };
 
-  const handleCurScore = (number) => {
+  function calcCurScore(diceNumber) {
+    // 이 게임은 주사위 숫자가 1이 나오면 턴이 상대편에게 넘어가는
+    // 규칙을 이용해야 되기 떄문에 state active로
+    // toggle 패턴 (prev => !prev)을 사용했다.
+
+    // active가 true 일떄는 player1Score의 current를 더해준다
     if (active) {
-      let total = cur1Score + number;
-      setCur1Score(total);
+      curTotal = cur1Score + diceNumber;
+      setCur1Score(curTotal);
     }
 
+    // active가 false 일떄는 player2Score의 current를 더해준다
     if (!active) {
-      let total = cur2Score + number;
-      setCur2Score(total);
+      curTotal = cur2Score + diceNumber;
+      setCur2Score(curTotal);
     }
-  };
+  }
 
-  const handleActiveClick = () => {
+  const handleHoldBtn = () => {
     if (active) {
-      let score = player1 + cur1Score;
-      setScore(score);
-      if (score >= 20) {
-        setBtnState(true);
-        setPlayer1Win(true);
-        setPlayer1(score);
-        setCur1Score(0);
+      scoreTotal = player1Score + cur1Score;
+
+      if (scoreTotal >= 20) {
+        calcPlayer1Win();
         return;
       }
+
       setActive((prev) => !prev);
-      setPlayer1(score);
+      setPlayer1Score(scoreTotal);
       setCur1Score(0);
     }
 
     if (!active) {
-      let score = player2 + cur2Score;
-      setScore(score);
-      if (score >= 20) {
-        setBtnState(true);
-        setPlayer2Win(true);
-        setPlayer2(score);
-        setCur2Score(0);
+      scoreTotal = player2Score + cur2Score;
+
+      if (scoreTotal >= 20) {
+        calcPlayer2Win();
         return;
       }
+
       setActive((prev) => !prev);
-      setPlayer2(score);
+      setPlayer2Score(scoreTotal);
       setCur2Score(0);
     }
   };
 
+  function calcPlayer1Win() {
+    setBtnState(true);
+    setPlayerWin(true);
+    setPlayer1Score(scoreTotal);
+    setCur1Score(0);
+  }
+
+  function calcPlayer2Win() {
+    setBtnState(true);
+    setPlayerWin(true);
+    setPlayer2Score(scoreTotal);
+    setCur2Score(0);
+  }
+
   const handleResetGame = () => {
-    setPlayer1(0);
-    setPlayer2(0);
+    setPlayer1Score(0);
+    setPlayer2Score(0);
     setCur1Score(0);
     setCur2Score(0);
     setActive(true);
     setBtnState(false);
-    setPlayer1Win(false);
-    setPlayer2Win(false);
+    setPlayerWin(false);
+    setDiceNum(diceNumber());
   };
 
+  // 이 useEffect는 오직 Hold 버튼을 누를 떄,
+  // side Effect를 반영하기 위한 목적으로 사용된다.
   useEffect(() => {
     setTimeout(() => {
       setCur1Score(0);
@@ -103,6 +124,10 @@ const DiceGame = () => {
     setBtnState(true);
   }, [active, diceNum === 1]);
 
+  // 종속성은 diceNum만 사용한다. active를 사용하면 주사위가
+  // 1이 나올떄, 자동으로 턴을 넘겨버리는 문제가 발생해서 그렇다.
+  // 이 useEffect는 Roll Dice 버튼을 누를 떄, 주사위를 굴리는
+  // 도중에 1이 나올 떄의 상태를 반영하기 위한 로직이다.
   useEffect(() => {
     if (diceNum === 1 && (cur1Score === 0 || cur2Score === 0)) {
       setTimeout(() => {
@@ -112,17 +137,17 @@ const DiceGame = () => {
       }, 1000);
       setBtnState(true);
     }
-  }, [diceNum]);
+  }, [diceNum === 1]);
 
   return (
     <Container>
       <Wrapper>
         <MainContent>
-          <Left active={active} gameWin1={player1Win}>
+          <Left active={active} playerWin={playerWin}>
             <Title>Player 1</Title>
-            <Score>{player1}</Score>
+            <Score>{player1Score}</Score>
 
-            {score >= 20 && player1Win ? (
+            {player1Score >= 20 && playerWin ? (
               <WinTitle>Game Win!</WinTitle>
             ) : (
               <Text>{active ? "Playing!" : "Waiting..."}</Text>
@@ -133,14 +158,17 @@ const DiceGame = () => {
               <Span>{cur1Score}</Span>
             </CurBox>
           </Left>
-          <Right active={!active} gameWin2={player2Win}>
+
+          <Right active={!active} playerWin={playerWin}>
             <Title>Player 2</Title>
-            <Score>{player2}</Score>
-            {score >= 20 && player2Win ? (
+            <Score>{player2Score}</Score>
+
+            {player2Score >= 20 && playerWin ? (
               <WinTitle>Game Win!</WinTitle>
             ) : (
               <Text>{!active ? "Playing!" : "Waiting..."}</Text>
             )}
+
             <CurBox>
               <Label>Current</Label>
               <Span>{cur2Score}</Span>
@@ -149,7 +177,11 @@ const DiceGame = () => {
         </MainContent>
 
         <ItemsBox>
-          <Button className="new__game" onClick={() => handleResetGame()}>
+          <Button
+            className="new__game"
+            onClick={() => handleResetGame()}
+            playerWin={playerWin}
+          >
             🔄 New Game
           </Button>
           <DiceImg
@@ -158,16 +190,18 @@ const DiceGame = () => {
             className="dice__img"
           />
           <Button
-            onClick={() => handleDiceClick()}
+            onClick={() => handleDiceBtn()}
             className="roll__dice"
             disabled={btnState}
+            playerWin={playerWin}
           >
             🎲 Roll Dice
           </Button>
           <Button
-            onClick={() => handleActiveClick()}
+            onClick={() => handleHoldBtn()}
             className="hold"
             disabled={btnState || diceNum === 1}
+            playerWin={playerWin}
           >
             📥 Hold
           </Button>

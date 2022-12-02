@@ -40,7 +40,7 @@ export const Left = styled.div`
         `}
 
   ${(props) =>
-    props.gameWin1 &&
+    props.playerWin &&
     props.active &&
     css`
       background-color: #748ffc;
@@ -51,7 +51,7 @@ export const Right = styled(Left)`
   background-color: ${(props) => (props.active ? "#ffdeeb" : "#faa2c1")};
 
   ${(props) =>
-    props.gameWin2 &&
+    props.playerWin &&
     props.active &&
     css`
       background-color: #748ffc;
@@ -109,7 +109,7 @@ export const Button = styled.button`
   letter-spacing: 1px;
 
   &:hover {
-    background-color: #e9ecef;
+    background-color: #ced4da;
   }
 `;
 
