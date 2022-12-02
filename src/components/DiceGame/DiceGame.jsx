@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { diceNumber } from "../../helper/randomDice";
 import {
   Container,
@@ -14,6 +14,8 @@ import {
   ItemsBox,
   Button,
   DiceImg,
+  Text,
+  WinTitle,
 } from "./styles";
 
 const DiceGame = () => {
@@ -24,6 +26,9 @@ const DiceGame = () => {
   const [cur2Score, setCur2Score] = useState(0);
   const [active, setActive] = useState(true);
   const [score, setScore] = useState(0);
+  const [btnState, setBtnState] = useState(false);
+  const [player1Win, setPlayer1Win] = useState(false);
+  const [player2Win, setPlayer2Win] = useState(false);
 
   const handleDiceClick = () => {
     if (diceNum === 1) {
@@ -37,13 +42,11 @@ const DiceGame = () => {
   const handleCurScore = (number) => {
     if (active) {
       let total = cur1Score + number;
-      setScore(total);
       setCur1Score(total);
     }
 
     if (!active) {
       let total = cur2Score + number;
-      setScore(total);
       setCur2Score(total);
     }
   };
@@ -51,6 +54,12 @@ const DiceGame = () => {
   const handleActiveClick = () => {
     if (active) {
       let score = player1 + cur1Score;
+      setScore(score);
+      if (score >= 20) {
+        setBtnState(true);
+        setPlayer1Win(true);
+        return;
+      }
       setActive((prev) => !prev);
       setPlayer1(score);
       setCur1Score(0);
@@ -58,29 +67,76 @@ const DiceGame = () => {
 
     if (!active) {
       let score = player2 + cur2Score;
+      setScore(score);
+      if (score >= 20) {
+        setBtnState(true);
+        setPlayer2Win(true);
+        return;
+      }
       setActive((prev) => !prev);
       setPlayer2(score);
       setCur2Score(0);
     }
   };
 
+  const handleResetGame = () => {
+    setPlayer1(0);
+    setPlayer2(0);
+    setCur1Score(0);
+    setCur2Score(0);
+    setActive(true);
+    setBtnState(false);
+    setPlayer1Win(false);
+    setPlayer2Win(false);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCur1Score(0);
+      setCur2Score(0);
+      setBtnState(false);
+    }, 1000);
+    setBtnState(true);
+  }, [active, diceNum === 1]);
+
+  useEffect(() => {
+    if (diceNum === 1 && (cur1Score === 0 || cur2Score === 0)) {
+      setTimeout(() => {
+        setActive((prev) => !prev);
+        setDiceNum(diceNumber());
+        setBtnState(false);
+      }, 1000);
+      setBtnState(true);
+    }
+  }, [diceNum]);
+
   return (
     <Container>
       <Wrapper>
         <MainContent>
-          <Left active={active}>
+          <Left active={active} gameWin1={player1Win}>
             <Title>Player 1</Title>
             <Score>{player1}</Score>
-            <Label>{active ? "플레이어1의 차례!" : ""}</Label>
+
+            {score >= 20 && player1Win ? (
+              <WinTitle>Game Win!</WinTitle>
+            ) : (
+              <Text>{active ? "Playing!" : "Waiting..."}</Text>
+            )}
+
             <CurBox>
               <Label>Current</Label>
               <Span>{cur1Score}</Span>
             </CurBox>
           </Left>
-          <Right active={!active}>
+          <Right active={!active} gameWin2={player2Win}>
             <Title>Player 2</Title>
             <Score>{player2}</Score>
-            <Label>{!active ? "플레이어2의 차례!" : ""}</Label>
+            {score >= 20 && player2Win ? (
+              <WinTitle>Game Win!</WinTitle>
+            ) : (
+              <Text>{!active ? "Playing!" : "Waiting..."}</Text>
+            )}
             <CurBox>
               <Label>Current</Label>
               <Span>{cur2Score}</Span>
@@ -89,16 +145,26 @@ const DiceGame = () => {
         </MainContent>
 
         <ItemsBox>
-          <Button className="new__game">🔄 New Game</Button>
+          <Button className="new__game" onClick={() => handleResetGame()}>
+            🔄 New Game
+          </Button>
           <DiceImg
             src={`${process.env.PUBLIC_URL}/img/dice-${diceNum}.png`}
             alt="dice-img"
             className="dice__img"
           />
-          <Button className="roll__dice" onClick={() => handleDiceClick()}>
+          <Button
+            onClick={() => handleDiceClick()}
+            className="roll__dice"
+            disabled={btnState}
+          >
             🎲 Roll Dice
           </Button>
-          <Button className="hold" onClick={() => handleActiveClick()}>
+          <Button
+            onClick={() => handleActiveClick()}
+            className="hold"
+            disabled={btnState}
+          >
             📥 Hold
           </Button>
         </ItemsBox>

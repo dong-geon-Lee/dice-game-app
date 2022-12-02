@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100rem;
@@ -21,16 +21,41 @@ export const MainContent = styled.div`
 `;
 
 export const Left = styled.div`
+  /* 게임 승리시 배경 색  #748ffc */
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => (props.active ? "#fff0f6" : "#faa2c1")};
+  background-color: ${(props) => (props.active ? "#ffdeeb" : "#faa2c1")};
   transition: all 0.6s ease-out;
+
+  ${(props) =>
+    props.active
+      ? css`
+          filter: contrast(200%) brightness(100%);
+        `
+      : css`
+          filter: contrast(150%) brightness(50%);
+        `}
+
+  ${(props) =>
+    props.gameWin1 &&
+    props.active &&
+    css`
+      background-color: #748ffc;
+    `}
 `;
 
 export const Right = styled(Left)`
-  background-color: ${(props) => (props.active ? "#fff0f6" : "#faa2c1")};
+  background-color: ${(props) => (props.active ? "#ffdeeb" : "#faa2c1")};
+
+  ${(props) =>
+    props.gameWin2 &&
+    props.active &&
+    css`
+      background-color: #748ffc;
+    `}
 `;
 
 export const ItemsBox = styled.div`
@@ -80,7 +105,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   border-radius: 1rem;
   margin: 0 auto;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   letter-spacing: 1px;
 
   &:hover {
@@ -93,7 +118,13 @@ export const Title = styled.h1`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin: 8rem 0 0rem 0;
+  margin: 8rem 0 0 0;
+`;
+
+export const WinTitle = styled(Title)`
+  margin: 2rem 0 0 0;
+  font-size: 4.2rem;
+  color: #ffdeeb;
 `;
 
 export const Score = styled.h1`
@@ -135,4 +166,10 @@ export const DiceImg = styled.img`
   display: block;
   margin: auto;
   box-shadow: 0 1rem 3rem 1rem rgba(0, 0, 0, 0.15);
+`;
+
+export const Text = styled.p`
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 1px;
 `;
