@@ -58,6 +58,8 @@ const DiceGame = () => {
       if (score >= 20) {
         setBtnState(true);
         setPlayer1Win(true);
+        setPlayer1(score);
+        setCur1Score(0);
         return;
       }
       setActive((prev) => !prev);
@@ -71,6 +73,8 @@ const DiceGame = () => {
       if (score >= 20) {
         setBtnState(true);
         setPlayer2Win(true);
+        setPlayer2(score);
+        setCur2Score(0);
         return;
       }
       setActive((prev) => !prev);
@@ -163,7 +167,7 @@ const DiceGame = () => {
           <Button
             onClick={() => handleActiveClick()}
             className="hold"
-            disabled={btnState}
+            disabled={btnState || diceNum === 1}
           >
             📥 Hold
           </Button>
