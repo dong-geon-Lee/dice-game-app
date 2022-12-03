@@ -5,7 +5,7 @@ import DiceLeftSide from "../../components/DiceLeftSide/DiceLeftSide";
 import DiceRightSide from "../../components/DiceRightSide /DiceRightSide";
 import { Container, Wrapper, MainContent } from "./styles";
 
-const DiceGame = () => {
+const DiceGame = ({ handleModals }) => {
   const [diceNum, setDiceNum] = useState(diceNumber());
   const [cur1Score, setCur1Score] = useState(0);
   const [cur2Score, setCur2Score] = useState(0);
@@ -125,6 +125,7 @@ const DiceGame = () => {
           calcCurScore={calcCurScore}
           calcHoldScorePlayer1={calcHoldScorePlayer1}
           calcHoldScorePlayer2={calcHoldScorePlayer2}
+          handleModals={handleModals}
         />
       </Wrapper>
     </Container>

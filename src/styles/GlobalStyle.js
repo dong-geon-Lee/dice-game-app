@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 
 const size = {
   mobile: "500px",
@@ -32,8 +32,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Nunito', sans-serif;
     font-weight: 400;    
     line-height: 1.5;
-    /* background-image: linear-gradient(45deg, #FBDA61 0%, #FF5ACD 100%); */
-    /* background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%); */
     background-color: beige;
     width: 100vw;
     height: 100vh;
@@ -41,6 +39,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 `;
 

@@ -18,6 +18,7 @@ const DiceButtons = ({
   calcHoldScorePlayer2,
   btnState,
   setBtnState,
+  handleModals,
 }) => {
   const handleResetBtn = () => {
     setPlayer1Score(0);
@@ -43,6 +44,9 @@ const DiceButtons = ({
 
   return (
     <ItemsBox>
+      <Button className="guide__modals" onClick={() => handleModals()}>
+        📓 Game Guide
+      </Button>
       <Button className="new__game" onClick={() => handleResetBtn()}>
         🔄 New Game
       </Button>

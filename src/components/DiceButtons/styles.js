@@ -8,11 +8,18 @@ export const ItemsBox = styled.div`
   width: 100%;
   height: 100%;
 
+  & .guide__modals {
+    position: absolute;
+    left: 50%;
+    top: 3%;
+    transform: translate(-50%, -3%);
+  }
+
   & .new__game {
     position: absolute;
     left: 50%;
-    top: 6%;
-    transform: translate(-50%, -6%);
+    top: 15%;
+    transform: translate(-50%, -15%);
   }
 
   & .dice__img {
