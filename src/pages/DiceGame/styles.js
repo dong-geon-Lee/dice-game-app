@@ -21,8 +21,6 @@ export const MainContent = styled.div`
 `;
 
 export const Left = styled.div`
-  /* 게임 승리시 배경 색  #748ffc */
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,9 +106,18 @@ export const Button = styled.button`
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   letter-spacing: 1px;
 
-  &:hover {
-    background-color: #ced4da;
-  }
+  ${(props) =>
+    props.disabled
+      ? css`
+          button[disabled]:hover {
+            background-color: #ced4da;
+          }
+        `
+      : css`
+          &:hover {
+            background-color: #ced4da;
+          }
+        `}
 `;
 
 export const Title = styled.h1`
