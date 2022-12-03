@@ -32,7 +32,7 @@ const DiceGame = () => {
   function calcHoldScorePlayer1() {
     scoreTotal = player1Score + cur1Score;
 
-    if (scoreTotal >= 36) {
+    if (scoreTotal >= 25) {
       calcPlayer1Win();
       return;
     }
@@ -45,7 +45,7 @@ const DiceGame = () => {
   function calcHoldScorePlayer2() {
     scoreTotal = player2Score + cur2Score;
 
-    if (scoreTotal >= 36) {
+    if (scoreTotal >= 25) {
       calcPlayer2Win();
       return;
     }

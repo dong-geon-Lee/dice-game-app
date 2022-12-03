@@ -16,7 +16,7 @@ const DiceLeftSide = ({ active, playerWin, player1Score, cur1Score }) => {
       <Title>Player 1</Title>
       <Score>{player1Score}</Score>
 
-      {player1Score >= 20 && playerWin ? (
+      {player1Score >= 25 && playerWin ? (
         <WinTitle>Game Win!</WinTitle>
       ) : (
         <Text>{active ? "Playing!" : "Waiting..."}</Text>
