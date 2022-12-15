@@ -1,4 +1,11 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
+import {
+  activeTurnState,
+  p1CurTotalState,
+  p1ScoreTotalState,
+  playerWinState,
+} from "../../atoms/gameState";
 import {
   Left,
   Title,
@@ -10,16 +17,21 @@ import {
   Span,
 } from "./styles";
 
-const DiceLeftSide = ({ active, playerWin, player1Score, cur1Score }) => {
+const DiceLeftSide = () => {
+  const activeTurnValue = useRecoilValue(activeTurnState);
+  const playerWin = useRecoilValue(playerWinState);
+  const player1Score = useRecoilValue(p1ScoreTotalState);
+  const cur1Score = useRecoilValue(p1CurTotalState);
+
   return (
-    <Left active={active} playerWin={playerWin}>
+    <Left active={activeTurnValue} playerWin={playerWin}>
       <Title>Player 1</Title>
       <Score>{player1Score}</Score>
 
       {player1Score >= 25 && playerWin ? (
         <WinTitle>Game Win!</WinTitle>
       ) : (
-        <Text>{active ? "Playing!" : "Waiting..."}</Text>
+        <Text>{activeTurnValue ? "Playing!" : "Waiting..."}</Text>
       )}
 
       <CurBox>

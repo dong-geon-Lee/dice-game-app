@@ -1,7 +1,17 @@
 import React from "react";
+import { useRecoilState } from "recoil";
+import { modalState, overlayState } from "../../atoms/modalState";
 import { Container, Button, Title, Text, Strong } from "./styles";
 
-const Modals = ({ handleModals }) => {
+const Modals = () => {
+  const [, setModals] = useRecoilState(modalState);
+  const [, setOverlays] = useRecoilState(overlayState);
+
+  const handleModals = () => {
+    setModals(false);
+    setOverlays(false);
+  };
+
   return (
     <Container>
       <Button onClick={() => handleModals()}>X</Button>

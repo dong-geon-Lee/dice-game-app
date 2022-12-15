@@ -1,46 +1,139 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import {
+  activeTurnState,
+  p1CurTotalState,
+  p1ScoreTotalState,
+  p2CurTotalState,
+  p2ScoreTotalState,
+  playerWinState,
+} from "../../atoms/gameState";
+import { modalState, overlayState } from "../../atoms/modalState";
+import { diceNumber } from "../../helper/randomDice";
 import { Button, DiceImg, ItemsBox } from "./styles";
 
-const DiceButtons = ({
-  diceNum,
-  diceNumber,
-  playerWin,
-  setPlayer1Score,
-  setPlayer2Score,
-  setCur1Score,
-  setCur2Score,
-  setActive,
-  setPlayerWin,
-  setDiceNum,
-  calcCurScore,
-  active,
-  calcHoldScorePlayer1,
-  calcHoldScorePlayer2,
-  btnState,
-  setBtnState,
-  handleModals,
-}) => {
+const DiceButtons = () => {
+  const [diceNum, setDiceNum] = useState(diceNumber());
+  const [cur1Score, setCur1Score] = useState(0);
+  const [cur2Score, setCur2Score] = useState(0);
+  const [player1Score, setPlayer1Score] = useState(0);
+  const [player2Score, setPlayer2Score] = useState(0);
+  const [btnState, setBtnState] = useState(false);
+
+  const [activeTurn, setActiveTurn] = useRecoilState(activeTurnState);
+  const [playerWin, setPlayerWin] = useRecoilState(playerWinState);
+
+  const [p1CurTotal, setP1CurTotal] = useRecoilState(p1CurTotalState);
+  const [p2CurTotal, setP2CurTotal] = useRecoilState(p2CurTotalState);
+  const [p1ScoreTotal, setP1ScoreTotal] = useRecoilState(p1ScoreTotalState);
+  const [p2ScoreTotal, setP2ScoreTotal] = useRecoilState(p2ScoreTotalState);
+  const [, setModals] = useRecoilState(modalState);
+  const [, setOverlay] = useRecoilState(overlayState);
+
+  let curTotal, scoreTotal;
+
+  function calcCurScore(diceNumber) {
+    if (activeTurn) {
+      // curTotal = cur1Score + diceNumber;
+      setP1CurTotal(cur1Score + diceNumber);
+      setCur1Score(p1CurTotal);
+    }
+
+    if (!activeTurn) {
+      // curTotal = cur2Score + diceNumber;
+      setP2CurTotal(cur2Score + diceNumber);
+      setCur2Score(p2CurTotal);
+    }
+  }
+
+  function calcHoldScorePlayer1() {
+    // scoreTotal = player1Score + cur1Score;
+    setP1ScoreTotal(player1Score + cur1Score);
+
+    if (p1ScoreTotal >= 25) {
+      calcPlayer1Win();
+      return;
+    }
+
+    setActiveTurn((prev) => !prev);
+    setPlayer1Score(p1ScoreTotal);
+    setCur1Score(0);
+  }
+
+  function calcHoldScorePlayer2() {
+    // scoreTotal = player2Score + cur2Score;
+    setP2ScoreTotal(player2Score + cur2Score);
+
+    if (p2ScoreTotal >= 25) {
+      calcPlayer2Win();
+      return;
+    }
+
+    setActiveTurn((prev) => !prev);
+    setPlayer2Score(p2ScoreTotal);
+    setCur2Score(0);
+  }
+
+  function calcPlayer1Win() {
+    setBtnState(true);
+    setPlayerWin(true);
+    setPlayer1Score(p1ScoreTotal);
+    setCur1Score(0);
+  }
+
+  function calcPlayer2Win() {
+    setBtnState(true);
+    setPlayerWin(true);
+    setPlayer2Score(p2ScoreTotal);
+    setCur2Score(0);
+  }
+
   const handleResetBtn = () => {
     setPlayer1Score(0);
     setPlayer2Score(0);
     setCur1Score(0);
     setCur2Score(0);
-    setActive(true);
+    setActiveTurn(true);
     setBtnState(false);
     setPlayerWin(false);
     setDiceNum(diceNumber());
   };
 
   const handleDiceBtn = () => {
-    if (diceNum === 1) setActive((prev) => !prev);
+    if (diceNum === 1) setActiveTurn((prev) => !prev);
     setDiceNum(diceNumber());
     calcCurScore(diceNum);
   };
 
   const handleHoldBtn = () => {
-    if (active) calcHoldScorePlayer1();
-    if (!active) calcHoldScorePlayer2();
+    if (activeTurn) calcHoldScorePlayer1();
+    if (!activeTurn) calcHoldScorePlayer2();
   };
+
+  const handleModals = () => {
+    setModals(true);
+    setOverlay(true);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCur1Score(0);
+      setCur2Score(0);
+      setBtnState(false);
+    }, 1000);
+    setBtnState(true);
+  }, [activeTurn, diceNum === 1]);
+
+  useEffect(() => {
+    if (diceNum === 1 && (cur1Score === 0 || cur2Score === 0)) {
+      setTimeout(() => {
+        setActiveTurn((prev) => !prev);
+        setDiceNum(diceNumber());
+        setBtnState(false);
+      }, 1000);
+      setBtnState(true);
+    }
+  }, [diceNum === 1]);
 
   return (
     <ItemsBox>
