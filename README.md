@@ -24,11 +24,11 @@
 
 ## :eyes: &nbsp; Web View
 <details>
-<summary>로그인 & 랜딩페이지</summary>  
+<summary>랜딩페이지</summary>  
 <div markdown="1">
 </div>
 <img width="600" alt=""
- src="https://user-images.githubusercontent.com/69576865/207612332-28ab3131-737b-4326-9435-d10df575ea43.gif">
+ src="https://user-images.githubusercontent.com/69576865/208078009-32490448-fbd5-4463-b895-6c5062108857.gif">
 </details>
 
 <details>
