@@ -65,18 +65,10 @@
 </details>
 
 <details>
-<summary>유효성 검사 (1) - 계좌이체</summary>  
+<summary>턴 전환</summary>  
  <img width="600" alt=""
- src="https://user-images.githubusercontent.com/69576865/207621527-1b2e1577-e792-45a3-936c-16f704834513.gif">
+ src="https://user-images.githubusercontent.com/69576865/208081955-bfac7055-a6d8-4e76-bc0b-2e2a449873f2.gif">
  <div markdown="1">
-   <h4>예외조건</h4>
-   <p>1) 계좌번호를 입력하지 않는 경우</p>
-   <p>2) 이체금액을 입력하지 않는 경우</p>
-   <p>3) 계좌번호 이체금액 모두 입력하지 않는 경우</p>
-   <p>4) 자기 스스로에게 이체하는 경우</p>
-   <p>5) 잘못된 계좌번호를 입력하는 경우</p>
-   <p>6) 이체한도 100만원을 초과하는 경우</p>
-   <p>7) 잔액이 부족한 경우 </p>
  </div>
 </details>
 
