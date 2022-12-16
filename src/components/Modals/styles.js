@@ -45,10 +45,10 @@ export const Title = styled.h1`
 
 export const Text = styled.p`
   font-style: italic;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 2.5;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-align: center;
   text-transform: uppercase;
 `;
