@@ -32,27 +32,27 @@
 </details>
 
 <details>
-<summary>계좌복사 & 계좌이체</summary>  
+<summary>주사위 굴리기</summary>  
 <div markdown="1">
 </div>
 <img width="600" alt=""
- src="https://user-images.githubusercontent.com/69576865/207610277-50bcc798-3d0d-4aaf-9bd0-f18e528211c9.gif">
+ src="https://user-images.githubusercontent.com/69576865/208078849-524e67df-f707-4c19-8e01-465e6d2d6e25.gif">
 </details>
 
 <details>
-<summary>대출 받기</summary>  
+<summary>게임 승리(점수 25점 이상)</summary>  
 <div markdown="1">
 </div>
 <img width="600" alt=""
- src="https://user-images.githubusercontent.com/69576865/207613936-5bcffdd3-57ef-4417-9f66-bcc25781ab31.gif">
+ src="https://user-images.githubusercontent.com/69576865/208079982-09e61d8a-3f01-4d8b-a1a1-b5f21b2dba8d.gif">
 </details>
 
 <details>
-<summary>계정 폐쇄</summary>  
+<summary>게임 재시작</summary>  
 <div markdown="1">
 </div>
 <img width="600" alt=""
- src="https://user-images.githubusercontent.com/69576865/207615968-0597d1dc-b7db-426a-8151-55f8e56c3178.gif">
+ src="https://user-images.githubusercontent.com/69576865/208080529-5b5265de-7f98-4f82-824c-e78ef906da3e.gif">
 </details>
 
 <details>
