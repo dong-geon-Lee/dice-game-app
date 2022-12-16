@@ -11,14 +11,14 @@ export const ItemsBox = styled.div`
   & .guide__modals {
     position: absolute;
     left: 50%;
-    top: 3%;
+    top: 0%;
     transform: translate(-50%, -3%);
   }
 
   & .new__game {
     position: absolute;
     left: 50%;
-    top: 15%;
+    top: 12%;
     transform: translate(-50%, -15%);
   }
 

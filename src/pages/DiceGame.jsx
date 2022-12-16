@@ -30,8 +30,6 @@ const DiceGame = () => {
   const [, setPlayerWin] = useRecoilState(playerWinState);
   const [, setBtnDisabled] = useRecoilState(btnDisabledState);
 
-  const p1CurScore = useRecoilValue(p1CurScoreState);
-  const p2CurScore = useRecoilValue(p2CurScoreState);
   const activeTurn = useRecoilValue(activeTurnState);
   const randomDice = useRecoilValue(randomDiceState);
   const activeModal = useRecoilValue(activeModalState);
@@ -74,24 +72,18 @@ const DiceGame = () => {
   }
 
   useEffect(() => {
+    setBtnDisabled(true);
     setTimeout(() => {
       setP1CurScore(0);
       setP2CurScore(0);
       setBtnDisabled(false);
-    }, 1000);
-    setBtnDisabled(true);
-  }, [activeTurn, randomDice === 1]);
 
-  useEffect(() => {
-    if (randomDice === 1 && (p1CurScore === 0 || p2CurScore === 0)) {
-      setTimeout(() => {
-        setActiveTurn((prev) => !prev);
-        setBtnDisabled(false);
+      if (randomDice === 1) {
         setRandomDice(diceNumber());
-      }, 1000);
-      setBtnDisabled(true);
-    }
-  }, [randomDice === 1]);
+        setActiveTurn((prev) => !prev);
+      }
+    }, 1000);
+  }, [activeTurn, randomDice === 1]);
 
   return (
     <Container>
