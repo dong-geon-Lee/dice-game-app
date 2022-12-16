@@ -1,7 +1,13 @@
 <img width="100" height="100" alt="bank" src="https://user-images.githubusercontent.com/69576865/208076804-f697165a-c7b1-433f-89a7-832702968b5d.png">
 
 ## :mag_right: &nbsp; Intro
-> 주사위를 이용해서 높은 점수를 얻는 플레이어가 승리하는 게임 앱입니다.
+> 주사위를 이용해서 높은 점수를 얻는 플레이어가 승리하는 게임 앱입니다.  
+- 점수 25점 이상을 얻으면 게임에서 승리합니다.
+- Roll Dice 버튼을 누르면 점수를 축적합니다. 
+- Hold 버튼을 누르면 축적한 점수를 획득합니다.
+- New Game 버튼을 누르면 게임이 재시작 됩니다. 
+- Game Guide 버튼을 누르면 게임규칙을 확인 할 수 있습니다. 
+- 주사위가 1이 나오면 즉시 상대방의 턴으로 전환됩니다.
 <br/>
 
 ## :link: &nbsp; Link
@@ -41,7 +47,7 @@
 </details>
 
 <details>
-<summary>게임 승리(점수 25점 이상)</summary>  
+<summary>게임 승리</summary>  
 <div markdown="1">
 </div>
 <img width="600" alt=""
