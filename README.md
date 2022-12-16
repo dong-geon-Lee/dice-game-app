@@ -21,6 +21,7 @@
 ![styled-components](https://img.shields.io/badge/styled--Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=fff)
 <br/>
 <br/>
+<br/>
 
 ## :eyes: &nbsp; Web View
 <details>
@@ -56,11 +57,11 @@
 </details>
 
 <details>
-<summary>정렬하기</summary>  
+<summary>게임 가이드</summary>  
 <div markdown="1">
 </div>
 <img width="600" alt=""
- src="https://user-images.githubusercontent.com/69576865/207617366-baa91f0f-38f0-4b79-b0b8-38ede2542e05.gif">
+ src="https://user-images.githubusercontent.com/69576865/208081383-55c8bf83-a97a-400a-968e-9e480fe82b55.gif">
 </details>
 
 <details>
