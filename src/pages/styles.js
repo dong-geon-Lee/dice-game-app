@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 
-export const MainContent = styled.div`
+export const Div = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
