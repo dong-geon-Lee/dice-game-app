@@ -1,8 +1,14 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { modalState, overlayState } from "../../atoms/modalState";
-import { diceNumber } from "../../helper/randomDice";
+import { modalState, overlayState } from "../../recoils/modalState";
+import { diceNumber, openModals } from "../../helpers/helpers";
 import { Button, DiceImg, ItemsBox } from "./styles";
+import {
+  GAME__GUIDE,
+  HOLD__GAME,
+  NEW__GAME,
+  ROLL__DICE,
+} from "../../constants/constants";
 import {
   activeTurnState,
   btnDisabledState,
@@ -14,7 +20,7 @@ import {
   p2CurScoreState,
   playerWinState,
   randomDiceState,
-} from "../../atoms/gameState";
+} from "../../recoils/gameState";
 
 const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
   const [activeTurn, setActiveTurn] = useRecoilState(activeTurnState);
@@ -26,15 +32,10 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
   const [, setP2AccScore] = useRecoilState(p2AccScoreState);
   const [, setP2CurScore] = useRecoilState(p2CurScoreState);
   const [, setModals] = useRecoilState(modalState);
-  const [, setOverlay] = useRecoilState(overlayState);
+  const [, setOverlays] = useRecoilState(overlayState);
 
   const calcP1Cur = useRecoilValue(calcP1CurState);
   const calcP2Cur = useRecoilValue(calcP2CurState);
-
-  const handleModals = () => {
-    setModals(true);
-    setOverlay(true);
-  };
 
   const handleResetBtn = () => {
     setP1AccScore(0);
@@ -61,11 +62,14 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
 
   return (
     <ItemsBox>
-      <Button className="guide__modals" onClick={() => handleModals()}>
-        📓 Game Guide
+      <Button
+        className="guide__modals"
+        onClick={() => openModals(setModals, setOverlays)}
+      >
+        {GAME__GUIDE}
       </Button>
       <Button className="new__game" onClick={() => handleResetBtn()}>
-        🔄 New Game
+        {NEW__GAME}
       </Button>
       <DiceImg
         src={`${process.env.PUBLIC_URL}/img/dice-${randomDice}.png`}
@@ -78,7 +82,7 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
         disabled={btnDisabled}
         playerWin={playerWin}
       >
-        🎲 Roll Dice
+        {ROLL__DICE}
       </Button>
       <Button
         onClick={() => handleHoldBtn()}
@@ -86,7 +90,7 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
         disabled={btnDisabled || randomDice === 1}
         playerWin={playerWin}
       >
-        📥 Hold
+        {HOLD__GAME}
       </Button>
     </ItemsBox>
   );

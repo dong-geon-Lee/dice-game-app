@@ -5,9 +5,10 @@ import DiceRightSide from "../components/DiceRightSide /DiceRightSide";
 import Overlays from "../components/Overlays/Overlays";
 import Modals from "../components/Modals/Modals";
 import { Container, Wrapper, Div } from "./styles";
-import { diceNumber } from "../helper/randomDice";
-import { activeModalState } from "../atoms/modalState";
+import { diceNumber, displayWinPlayer } from "../helpers/helpers";
+import { activeModalState } from "../recoils/modalState";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { WINNER__SCORE } from "../constants/constants";
 import {
   activeTurnState,
   btnDisabledState,
@@ -18,7 +19,7 @@ import {
   p2CurScoreState,
   playerWinState,
   randomDiceState,
-} from "../atoms/gameState";
+} from "../recoils/gameState";
 
 const DiceGame = () => {
   const [, setP1CurScore] = useRecoilState(p1CurScoreState);
@@ -35,41 +36,39 @@ const DiceGame = () => {
   const activeModal = useRecoilValue(activeModalState);
   const gameScore = useRecoilValue(gameScoreState);
 
-  function calcHoldScorePlayer1() {
-    if (gameScore >= 25) {
-      calcPlayer1Win();
+  const calcHoldScorePlayer1 = () => {
+    if (gameScore >= WINNER__SCORE) {
+      displayWinPlayer(
+        setBtnDisabled,
+        setPlayerWin,
+        setP1CurScore,
+        setP1AccScore,
+        gameScore
+      );
       return;
     }
 
     setActiveTurn((prevState) => !prevState);
     setP1AccScore(gameScore);
     setP1CurScore(0);
-  }
+  };
 
-  function calcHoldScorePlayer2() {
-    if (gameScore >= 25) {
-      calcPlayer2Win();
+  const calcHoldScorePlayer2 = () => {
+    if (gameScore >= WINNER__SCORE) {
+      displayWinPlayer(
+        setBtnDisabled,
+        setPlayerWin,
+        setP2CurScore,
+        setP2AccScore,
+        gameScore
+      );
       return;
     }
 
     setActiveTurn((prevState) => !prevState);
     setP2AccScore(gameScore);
     setP2CurScore(0);
-  }
-
-  function calcPlayer1Win() {
-    setBtnDisabled(true);
-    setPlayerWin(true);
-    setP1AccScore(gameScore);
-    setP1CurScore(0);
-  }
-
-  function calcPlayer2Win() {
-    setBtnDisabled(true);
-    setPlayerWin(true);
-    setP2AccScore(gameScore);
-    setP2CurScore(0);
-  }
+  };
 
   useEffect(() => {
     setBtnDisabled(true);

@@ -1,11 +1,12 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
+import { GAME__WIN, PLAYER__2, WINNER__SCORE } from "../../constants/constants";
 import {
   activeTurnState,
   p2AccScoreState,
   p2CurScoreState,
   playerWinState,
-} from "../../atoms/gameState";
+} from "../../recoils/gameState";
 import {
   Right,
   Title,
@@ -23,15 +24,18 @@ const DiceRightSide = () => {
   const p2AccScore = useRecoilValue(p2AccScoreState);
   const p2CurScore = useRecoilValue(p2CurScoreState);
 
+  const gameWinStatus = p2AccScore >= WINNER__SCORE && playerWin;
+  const gameContinueStatus = !activeTurn ? "Playing!" : "Waiting...";
+
   return (
     <Right active={!activeTurn} playerWin={playerWin}>
-      <Title>Player 2</Title>
+      <Title>{PLAYER__2}</Title>
       <Score>{p2AccScore}</Score>
 
-      {p2AccScore >= 25 && playerWin ? (
-        <WinTitle>Game Win!</WinTitle>
+      {gameWinStatus ? (
+        <WinTitle>{GAME__WIN}</WinTitle>
       ) : (
-        <Text>{!activeTurn ? "Playing!" : "Waiting..."}</Text>
+        <Text>{gameContinueStatus}</Text>
       )}
 
       <CurBox>
