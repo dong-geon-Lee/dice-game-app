@@ -87,7 +87,7 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
       <Button
         onClick={() => handleHoldBtn()}
         className="hold"
-        disabled={btnDisabled || randomDice === 1}
+        disabled={btnDisabled}
       >
         {HOLD__GAME}
       </Button>
