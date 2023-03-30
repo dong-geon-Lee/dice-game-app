@@ -40,16 +40,6 @@ export const randomDiceState = atom({
   default: Math.floor(Math.random() * 6 + 1),
 });
 
-export const currentTotalState = atom({
-  key: "currentTotalState",
-  default: 0,
-});
-
-export const scoreTotalState = atom({
-  key: "scoreTotalState",
-  default: 0,
-});
-
 export const calcP1CurState = selector({
   key: "calcP1CurState",
   get: ({ get }) => {
