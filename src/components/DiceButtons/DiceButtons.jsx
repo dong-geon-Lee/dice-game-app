@@ -24,9 +24,9 @@ import {
 
 const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
   const [activeTurn, setActiveTurn] = useRecoilState(activeTurnState);
-  const [playerWin, setPlayerWin] = useRecoilState(playerWinState);
   const [btnDisabled, setBtnDisabled] = useRecoilState(btnDisabledState);
   const [randomDice, setRandomDice] = useRecoilState(randomDiceState);
+  const [, setPlayerWin] = useRecoilState(playerWinState);
   const [, setP1AccScore] = useRecoilState(p1AccScoreState);
   const [, setP1CurScore] = useRecoilState(p1CurScoreState);
   const [, setP2AccScore] = useRecoilState(p2AccScoreState);
@@ -51,6 +51,7 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
   const handleDiceBtn = () => {
     if (randomDice === 1) setActiveTurn((prev) => !prev);
     setRandomDice(diceNumber());
+
     if (activeTurn) setP1CurScore(calcP1Cur);
     if (!activeTurn) setP2CurScore(calcP2Cur);
   };
@@ -80,7 +81,6 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
         onClick={() => handleDiceBtn()}
         className="roll__dice"
         disabled={btnDisabled}
-        playerWin={playerWin}
       >
         {ROLL__DICE}
       </Button>
@@ -88,7 +88,6 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
         onClick={() => handleHoldBtn()}
         className="hold"
         disabled={btnDisabled || randomDice === 1}
-        playerWin={playerWin}
       >
         {HOLD__GAME}
       </Button>

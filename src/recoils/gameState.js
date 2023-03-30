@@ -68,19 +68,6 @@ export const calcP2CurState = selector({
   },
 });
 
-export const calcCurScoreState = selector({
-  key: "calcCurScoreState",
-  get: ({ get }) => {
-    let p1CurScore = get(p1CurScoreState);
-    let p2CurScore = get(p2CurScoreState);
-    let randomDice = get(randomDiceState);
-    let activeTurn = get(activeTurnState);
-
-    if (activeTurn) return p1CurScore + randomDice;
-    if (!activeTurn) return p2CurScore + randomDice;
-  },
-});
-
 export const gameScoreState = selector({
   key: "gameScoreState",
   get: ({ get }) => {

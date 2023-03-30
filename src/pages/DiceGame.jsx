@@ -94,7 +94,6 @@ const DiceGame = () => {
           <DiceLeftSide />
           <DiceRightSide />
         </Div>
-
         <DiceButtons
           calcHoldScorePlayer1={calcHoldScorePlayer1}
           calcHoldScorePlayer2={calcHoldScorePlayer2}
