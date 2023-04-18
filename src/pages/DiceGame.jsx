@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeModalState } from "../recoils/modalState";
 import { diceNumber, displayWinPlayer } from "../helpers/helpers";
@@ -38,7 +38,7 @@ const DiceGame = () => {
   const activeModal = useRecoilValue(activeModalState);
   const gameScore = useRecoilValue(gameScoreState);
 
-  const calcHoldScorePlayer1 = () => {
+  const calcHoldScorePlayer1 = useCallback(() => {
     if (gameScore >= C.WINNER__SCORE) {
       displayWinPlayer(
         setBtnDisabled,
@@ -53,9 +53,9 @@ const DiceGame = () => {
     setActiveTurn((prevState) => !prevState);
     setP1AccScore(gameScore);
     setP1CurScore(0);
-  };
+  }, [gameScore]);
 
-  const calcHoldScorePlayer2 = () => {
+  const calcHoldScorePlayer2 = useCallback(() => {
     if (gameScore >= C.WINNER__SCORE) {
       displayWinPlayer(
         setBtnDisabled,
@@ -70,7 +70,7 @@ const DiceGame = () => {
     setActiveTurn((prevState) => !prevState);
     setP2AccScore(gameScore);
     setP2CurScore(0);
-  };
+  }, [gameScore]);
 
   useEffect(() => {
     setBtnDisabled(true);
