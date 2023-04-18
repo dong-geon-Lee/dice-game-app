@@ -1,14 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { modalState, overlayState } from "../../recoils/modalState";
-import { diceNumber, openModals } from "../../helpers/helpers";
-import { Button, DiceImg, ItemsBox } from "./styles";
-import {
-  GAME__GUIDE,
-  HOLD__GAME,
-  NEW__GAME,
-  ROLL__DICE,
-} from "../../constants/constants";
 import {
   activeTurnState,
   btnDisabledState,
@@ -21,6 +13,9 @@ import {
   playerWinState,
   randomDiceState,
 } from "../../recoils/gameState";
+import { diceNumber, openModals } from "../../helpers/helpers";
+import * as S from "./styles";
+import * as C from "../../constants/constants";
 
 const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
   const [activeTurn, setActiveTurn] = useRecoilState(activeTurnState);
@@ -62,36 +57,36 @@ const DiceButtons = ({ calcHoldScorePlayer1, calcHoldScorePlayer2 }) => {
   };
 
   return (
-    <ItemsBox>
-      <Button
+    <S.ItemsBox>
+      <S.Button
         className="guide__modals"
         onClick={() => openModals(setModals, setOverlays)}
       >
-        {GAME__GUIDE}
-      </Button>
-      <Button className="new__game" onClick={() => handleResetBtn()}>
-        {NEW__GAME}
-      </Button>
-      <DiceImg
+        {C.GAME__GUIDE}
+      </S.Button>
+      <S.Button className="new__game" onClick={() => handleResetBtn()}>
+        {C.NEW__GAME}
+      </S.Button>
+      <S.DiceImg
         src={`${process.env.PUBLIC_URL}/img/dice-${randomDice}.png`}
         alt="dice-img"
         className="dice__img"
       />
-      <Button
+      <S.Button
         onClick={() => handleDiceBtn()}
         className="roll__dice"
         disabled={btnDisabled}
       >
-        {ROLL__DICE}
-      </Button>
-      <Button
+        {C.ROLL__DICE}
+      </S.Button>
+      <S.Button
         onClick={() => handleHoldBtn()}
         className="hold"
         disabled={btnDisabled}
       >
-        {HOLD__GAME}
-      </Button>
-    </ItemsBox>
+        {C.HOLD__GAME}
+      </S.Button>
+    </S.ItemsBox>
   );
 };
 
