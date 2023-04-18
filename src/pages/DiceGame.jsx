@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
-import DiceButtons from "../components/DiceButtons/DiceButtons";
-import DiceLeftSide from "../components/DiceLeftSide/DiceLeftSide";
-import DiceRightSide from "../components/DiceRightSide /DiceRightSide";
-import Overlays from "../components/Overlays/Overlays";
-import Modals from "../components/Modals/Modals";
-import { Container, Wrapper, Div } from "./styles";
-import { diceNumber, displayWinPlayer } from "../helpers/helpers";
-import { activeModalState } from "../recoils/modalState";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { WINNER__SCORE } from "../constants/constants";
+import { activeModalState } from "../recoils/modalState";
+import { diceNumber, displayWinPlayer } from "../helpers/helpers";
 import {
   activeTurnState,
   btnDisabledState,
@@ -20,6 +13,15 @@ import {
   playerWinState,
   randomDiceState,
 } from "../recoils/gameState";
+import {
+  DiceButtons,
+  DiceLeftSide,
+  DiceRightSide,
+  Modals,
+  Overlays,
+} from "../components/index";
+import * as S from "./styles";
+import * as C from "../constants/constants";
 
 const DiceGame = () => {
   const [, setP1CurScore] = useRecoilState(p1CurScoreState);
@@ -37,7 +39,7 @@ const DiceGame = () => {
   const gameScore = useRecoilValue(gameScoreState);
 
   const calcHoldScorePlayer1 = () => {
-    if (gameScore >= WINNER__SCORE) {
+    if (gameScore >= C.WINNER__SCORE) {
       displayWinPlayer(
         setBtnDisabled,
         setPlayerWin,
@@ -54,7 +56,7 @@ const DiceGame = () => {
   };
 
   const calcHoldScorePlayer2 = () => {
-    if (gameScore >= WINNER__SCORE) {
+    if (gameScore >= C.WINNER__SCORE) {
       displayWinPlayer(
         setBtnDisabled,
         setPlayerWin,
@@ -85,21 +87,21 @@ const DiceGame = () => {
   }, [activeTurn, randomDice === 1]);
 
   return (
-    <Container>
+    <S.Container>
       {activeModal && <Overlays />}
       {activeModal && <Modals />}
 
-      <Wrapper>
-        <Div>
+      <S.Wrapper>
+        <S.Div>
           <DiceLeftSide />
           <DiceRightSide />
-        </Div>
+        </S.Div>
         <DiceButtons
           calcHoldScorePlayer1={calcHoldScorePlayer1}
           calcHoldScorePlayer2={calcHoldScorePlayer2}
         />
-      </Wrapper>
-    </Container>
+      </S.Wrapper>
+    </S.Container>
   );
 };
 
