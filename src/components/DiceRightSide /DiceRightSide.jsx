@@ -1,48 +1,36 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { GAME__WIN, PLAYER__2, WINNER__SCORE } from "../../constants/constants";
 import {
   activeTurnState,
   p2AccScoreState,
   p2CurScoreState,
   playerWinState,
 } from "../../recoils/gameState";
-import {
-  Right,
-  Title,
-  Score,
-  WinTitle,
-  Text,
-  CurBox,
-  Label,
-  Span,
-} from "./styles";
+import * as S from "./styles";
+import * as C from "../../constants/constants";
 
 const DiceRightSide = () => {
   const activeTurn = useRecoilValue(activeTurnState);
   const playerWin = useRecoilValue(playerWinState);
   const p2AccScore = useRecoilValue(p2AccScoreState);
   const p2CurScore = useRecoilValue(p2CurScoreState);
-
-  const gameWinStatus = p2AccScore >= WINNER__SCORE && playerWin;
-  const gameContinueStatus = !activeTurn ? "Playing!" : "Waiting...";
+  const gameWinStatus = p2AccScore >= C.WINNER__SCORE && playerWin;
+  const gameContinueStatus = !activeTurn ? C.PLAY : C.WAIT;
 
   return (
-    <Right active={!activeTurn} playerWin={playerWin}>
-      <Title>{PLAYER__2}</Title>
-      <Score>{p2AccScore}</Score>
-
+    <S.Right active={!activeTurn} playerWin={playerWin}>
+      <S.Title>{C.PLAYER__2}</S.Title>
+      <S.Score>{p2AccScore}</S.Score>
       {gameWinStatus ? (
-        <WinTitle>{GAME__WIN}</WinTitle>
+        <S.WinTitle>{C.GAME__WIN}</S.WinTitle>
       ) : (
-        <Text>{gameContinueStatus}</Text>
+        <S.Text>{gameContinueStatus}</S.Text>
       )}
-
-      <CurBox>
-        <Label>Current</Label>
-        <Span>{p2CurScore}</Span>
-      </CurBox>
-    </Right>
+      <S.CurBox>
+        <S.Label>Current</S.Label>
+        <S.Span>{p2CurScore}</S.Span>
+      </S.CurBox>
+    </S.Right>
   );
 };
 

@@ -6,6 +6,8 @@ export const GAME__GUIDE = "📓 Game Guide";
 export const NEW__GAME = "🔄 New Game";
 export const ROLL__DICE = "🎲 Roll Dice";
 export const HOLD__GAME = "📥 Hold";
+export const PLAY = "Playing!";
+export const WAIT = "Waiting...";
 
 export const GAME__RULES__ONE =
   "1. [ Roll dice ] 버튼을 클릭하면 숫자가 증가합니다.";
